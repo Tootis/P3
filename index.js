@@ -1,12 +1,12 @@
 // récupérer les données de l'API
 function getDataFromApi() {
   return fetch("http://localhost:5678/api/works")
-    .then(function (response) {
+    .then((response) => {
       if (response.ok) {
         return response.json();
       }
     })
-    .then(function (data) {
+    .then((data) => {
       return data;
     });
 }

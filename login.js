@@ -1,32 +1,45 @@
-function getDataFromApi() {
-    return fetch("http://localhost:5678/api/works")
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
+function getDataFromApi(email, password) {
+    return fetch("http://localhost:5678/api/users/login",{
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Echec');
         }
-      })
-      .then(function (data) {
-        return data;
-      });
+        return response.json();
+    })
+    .then(data => {
+        if (data.token){
+            console.log('token', data.token);
+            return data.token
+        } else {
+            throw new Error(
+                'Erreur Token'
+            )}
+    });
   }
 
-let email = document.getElementById ('email')
-console.log(email)
-let login = document.getElementById ('login')
-console.log(login)
+document.getElementById('login').addEventListener('click', function() {    
+    let emailValue = document.getElementById('email').value;
+    let passwordValue = document.getElementById('password').value;
 
-document.getElementById('login').addEventListener('click', function() {
-    
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
+    getDataFromApi(`sophie.bluel@test.tld`, `S0phie`)
 
-    
-    if (email === 'sophie.bluel@test.tld' && password === 'S0phie') {
+    .then(token => {
         alert('Connexion réussie !');
-        
-    } else {
+    })
+
+    .catch(error => {
         alert(`Erreur dans l’identifiant ou le mot de passe`);
-    }
+        console.error(error);
+    })
 });
 
 document.getElementById('forgotPassword').addEventListener('click', function() {
