@@ -28,7 +28,7 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
+#mainContainer {
 	line-height: 1;
 }
 ol, ul {
@@ -47,7 +47,7 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+#mainContainer {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
@@ -99,6 +99,11 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+a {
+	text-decoration: none;
+	color: inherit ;
+}
 #introduction {
 	display: flex;
 	align-items: center;
@@ -127,7 +132,6 @@ li:hover {
 	margin-top: 5em;
 }
 #filter{
-	display: flex;
 	justify-content: center;
 	gap: 10px;
 	padding: 5% 0%;
@@ -208,6 +212,52 @@ footer nav ul {
 	margin: 2em
 }
 
+#buttonEdition {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	color: white;
+	height: 4em;
+	font-size: 16px;
+}
+
+#projectEdit {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	gap: 5%;
+}
+
+.modal{
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+* {box-sizing: border-box;
+}
+
+.modal-wrapper {
+	width: 600px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	overflow: auto;
+	padding: 20px;
+	background-color: white;
+}
+
+.js-modal-close{
+	border: none;
+	background: transparent;
+}
+
 /** Login **/
 
 #cardLogin{
@@ -232,13 +282,7 @@ footer nav ul {
 	border: none;
 }
 
-#email{
-	border : none;
-	text-decoration: none;
-	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
-}
-
-#password{
+#email #password{
 	border : none;
 	text-decoration: none;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);

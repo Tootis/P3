@@ -1,3 +1,16 @@
+function saveTokenLocalStorage (token) {
+    localStorage.setItem('authToken', token)
+}
+
+function getTokenLocalStorage() {
+    return localStorage.getItem('authToken')
+}
+
+function checkLoggedIn() {
+    const token = getTokenLocalStorage()
+    return token !== null;
+}
+
 function getDataFromApi(email, password) {
     return fetch("http://localhost:5678/api/users/login",{
         method: 'POST',
@@ -17,6 +30,7 @@ function getDataFromApi(email, password) {
     })
     .then(data => {
         if (data.token){
+            saveTokenLocalStorage(data.token)
             console.log('token', data.token);
             return data.token
         } else {
@@ -29,20 +43,22 @@ function getDataFromApi(email, password) {
 document.getElementById('login').addEventListener('click', function() {    
     let emailValue = document.getElementById('email').value;
     let passwordValue = document.getElementById('password').value;
-
-    getDataFromApi(`sophie.bluel@test.tld`, `S0phie`)
-
+    console.log(emailValue,passwordValue)
+    // sophie.bluel@test.tld  S0phie
+    getDataFromApi(emailValue,passwordValue)
     .then(token => {
-        alert('Connexion réussie !');
+        if (checkLoggedIn()){
+            window.location.href = 'index.html'
+        }
+        
     })
 
     .catch(error => {
         alert(`Erreur dans l’identifiant ou le mot de passe`);
-        console.error(error);
+        console.log(error);
     })
 });
 
 document.getElementById('forgotPassword').addEventListener('click', function() {
-    
     alert('Mot de passe oublié');
 });

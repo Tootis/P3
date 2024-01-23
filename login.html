@@ -11,50 +11,52 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-<header>
-    <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-    <nav>
-        <ul>
-            <li>projets</li>
-            <li>contact</li>
-            <li><b>login</b></li>
-            <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-        </ul>
-    </nav>
-</header>
-<main>
-    <div id="cardLogin">
-        <h2>log in</h2>
-        <div>
-            <div class="cardUser">
-                <label class="CheckEmail" for="email">
-                    <p>E-Mail</p>
-                </label>
-                <input type="text" id="email">
-            </div>
-            <br>
+<div id="mainContainer">
+    <header>
+        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+        <nav>
+            <ul>
+                <li>projets</li>
+                <li>contact</li>
+                <li><b>login</b></li>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="cardLogin">
+            <h2>log in</h2>
             <div>
                 <div class="cardUser">
-                    <label class="CheckPassword" for="password">
-                        <p>Mot de passe</p>
+                    <label class="CheckEmail" for="email">
+                        <p>E-Mail</p>
                     </label>
-                    <input type="text" id="password">
+                    <input type="email" required id="email">
+                </div>
+                <br>
+                <div>
+                    <div class="cardUser">
+                        <label class="CheckPassword"  for="password">
+                            <p>Mot de passe</p>
+                        </label>
+                        <input type="password" required id="password">
+                    </div>
                 </div>
             </div>
+            <button id="login">Se connecter</button>
+            <a id="forgotPassword"><u>Mot de passe oublié</u></a>
         </div>
-        <button id="login">Se connecter</button>
-        <a id="forgotPassword"><u>Mot de passe oublié</u></a>
-    </div>
-    
-</main>
+        
+    </main>
 
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
-<script src="login.js"></script>
+    <footer>
+        <nav>
+            <ul>
+                <li>Mentions Légales</li>
+            </ul>
+        </nav>
+    </footer>
+    <script src="login.js"></script>
+</div>
 </body>
 </html>
