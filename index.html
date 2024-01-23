@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-	<div id="buttonEdition"> <button"><i class="fa-regular fa-pen-to-square"></i> Mode édition</button></div>
+	<div id="buttonEdition" class="displayWhenLog" style="display: none;"> <button"><i class="fa-regular fa-pen-to-square"></i> Mode édition</button></div>
 	<div id="mainContainer">
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -19,7 +19,7 @@
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li><a href="login.html" class="hideWhenLog">login</a></li>
+				<li><a href="login.html" class="hideWhenLog">login</a></li> <a href="login.html" class="displayWhenLog" style="display: none;">logout</a>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -43,11 +43,11 @@
 				<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 					<div class="modal-wrapper js-modal-stop" >
 						<button class="js-modal-close">x</button>
-						<h2 id="titlemodal">Galerie Photo</h2>
+						<h3 id="titleModal">Galerie Photo</h3>
 						<div>
 
 						</div>
-						<button>Ajouter une photo</button>
+						<button class="AddPicture">Ajouter une photo</button>
 					</div>
 				</aside>
 			</div>

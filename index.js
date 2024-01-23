@@ -57,7 +57,7 @@ function init() {
   });
 }
 
-// moda
+// modal
 let modal = null
 
 const openmodal = function (e) {
@@ -91,17 +91,20 @@ document.querySelectorAll ('.js-modal').forEach(a =>{
 a.addEventListener('click',openmodal)
 })
 
+
+
 // Login
 function changementLogin ( ) {
   let token =localStorage.getItem('authToken')
   let hideElement = document.querySelectorAll ('.hideWhenLog')
-  console.log(hideElement)
-    if (token !== null) { 
-      console.log(token)
+  let displayElement = document.querySelectorAll('.displayWhenLog')
+    if (token !== null) {
       hideElement.forEach(Element=> {
       Element.style.display = 'none';
-      console.log(Element)
     })
+      displayElement.forEach(Element=> {
+        Element.style.display = 'flex'
+      })
   }
 }
 changementLogin() 
