@@ -19,7 +19,8 @@
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li><a href="login.html" class="hideWhenLog">login</a></li> <a href="login.html" class="displayWhenLog" style="display: none;">logout</a>
+				<li class="hideWhenLog"><a href="login.html">login</a></li>
+				<li class="displayWhenLog" style="display: none;"><button class="buttontest">logout</button></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -39,12 +40,12 @@
 		<section id="portfolio">
 			<div id="projectEdit">
 				<h2>Mes Projets</h2>
-				<a href="#modal1" class="js-modal"><i class="fa-regular fa-pen-to-square"></i> Modifier </a>
+				<a href="#modal1" class="js-modal displayWhenLog" style="display: none;"><i class="fa-regular fa-pen-to-square"></i> Modifier </a>
 				<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 					<div class="modal-wrapper js-modal-stop" >
 						<button class="js-modal-close">x</button>
 						<h3 id="titleModal">Galerie Photo</h3>
-						<div id="images-container">
+						<div class="pictureContainer">
 
 						</div>
 						<button class="AddPicture">Ajouter une photo</button>
@@ -118,7 +119,6 @@
 			</form>
 		</section>
 	</main>
-
 	<footer>
 		<nav>
 			<ul>
@@ -129,5 +129,5 @@
 	<script src="https://kit.fontawesome.com/838c10b10b.js" crossorigin="anonymous"></script>
 	<script src="index.js"></script>
 	</div>
-	</body>
+</body>
 </html>

@@ -1,4 +1,4 @@
-// récupérer les données de l'API
+// récupérer la data depuis l'API
 function getDataFromApi() {
   return fetch("http://localhost:5678/api/works")
     .then((response) => {
@@ -17,14 +17,15 @@ function showImagesByCategory(categoryId, data) {
   gallery.innerHTML = "";
   data.forEach((image) => {
     if (categoryId === "all" || image.categoryId === parseInt(categoryId)) {
-      createImageElement(image);
+      const galleryImport = document.querySelector(".gallery");
+      createImageElement(image,galleryImport);
     }
   });
 }
 
 // créer un élément d'image dans la galerie
-function createImageElement(image) {
-  const gallery = document.querySelector(".gallery");
+function createImageElement(image, route) {
+  console.log(route)
   const figure = document.createElement("figure");
   const img = document.createElement("img");
   const figcaption = document.createElement("figcaption");
@@ -35,9 +36,15 @@ function createImageElement(image) {
 
   figure.appendChild(img);
   figure.appendChild(figcaption);
-  gallery.appendChild(figure);
+  route.appendChild(figure);
 }
+function test (data) {
+  data.forEach((image) => {
+    const pictureContainer = document.querySelector(".pictureContainer")
+    createImageElement(image,pictureContainer)
 
+  });
+}
 // gérer le clic sur les boutons de filtre
 function handleFilterButtonClick(event, data) {
   const categoryId = event.target.dataset.id;
@@ -47,7 +54,10 @@ function handleFilterButtonClick(event, data) {
 // récupérer les données et initialiser les événements
 function init() {
   getDataFromApi().then((data) => {
+    console.log(data)
     showImagesByCategory("all", data);
+    test(data)
+    
     const filterButtons = document.querySelectorAll(".projectButton");
     filterButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
@@ -77,7 +87,7 @@ const closeModal = function (e) {
   e.preventDefault()
   modal.style.display = 'none'
   modal.setAttribute('aria-hidden', 'true')
-  modal.setAttribute('aria-modal') 
+  modal.removeAttribute('aria-modal') 
   modal.removeEventListener('click' , closeModal)
   modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
   modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
@@ -96,7 +106,7 @@ a.addEventListener('click',openmodal)
 // Login
 function changementLogin ( ) {
   let token =localStorage.getItem('authToken')
-  let hideElement = document.querySelectorAll ('.hideWhenLog')
+  let hideElement = document.querySelectorAll ('.hideWhenLog')  // Changer la déconnexion
   let displayElement = document.querySelectorAll('.displayWhenLog')
     if (token !== null) {
       hideElement.forEach(Element=> {
