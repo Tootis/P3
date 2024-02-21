@@ -46,9 +46,28 @@
 						<button class="js-modal-close">x</button>
 						<h3 id="titleModal">Galerie Photo</h3>
 						<div class="pictureContainer">
-
 						</div>
-						<button class="AddPicture">Ajouter une photo</button>
+						<button href="#modal2" class="addPicture js-modal">Ajouter une photo</button>
+					</div>
+				</aside>
+				
+				<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
+					<div class="modal-wrapper js-modal-stop" >
+						<button class="js-modal-close">x</button>
+						<h3 id="titleModal2">Ajout Photo</h3>
+						<form action="/traitement_categorie" method="post">
+							<label for="nom">Titre :</label>
+							<input type="text" id="nom" name="nom"><br><br>
+							<label for="nom_categorie">Catégorie :</label>
+							<select id="nom_categorie" name="nom_categorie">
+							  <option value="categorie1">Objets</option>
+							  <option value="categorie2">Appartements</option>
+							  <option value="categorie3">Hôtels & restaurants</option>
+							</select><br><br>
+							<label for="image">Ajouter une photo :</label>
+  							<input type="file" id="image" name="image"><br><br>
+							<input type="submit" value="Valider">
+						  </form>
 					</div>
 				</aside>
 			</div>
