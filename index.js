@@ -50,19 +50,26 @@ function createImageElement(image,route) {
   }
 }
 
-function suppr (image) {
+function suppr(image) {
   const id = image.id;
-      let token = localStorage.getItem("authToken");
-      console.log(id)
+  let token = localStorage.getItem("authToken");
 
-      fetch(`http://localhost:5678/api/works/${id}`, {
-        method: "DELETE",// vérifier avec le jeton du local storage pour donner l'autorisation
-        headers: { 'Authorization': `Bearer ${token}`,
-        cache: 'reload'
-    }})
-        .then((response) => response.json()) // en direct et non par F5
-        .then ((json)=>console.log(json))
-        .catch((err) => console.log(err));
+  fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      cache: 'reload'
+    }
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      const deletedImage = document.querySelector(`.gallery img[src="${image.imageUrl}"]`);
+      if (deletedImage) {
+        deletedImage.closest('figure').remove();
+      }
+    })
+    .catch((err) => console.log(err));
 }
 
 function modalPicture(data) {
@@ -70,6 +77,41 @@ function modalPicture(data) {
     const pictureContainer = document.querySelector(".pictureContainer");
     createImageElement(image, pictureContainer);
   });
+    const uploadForm = document.getElementById("uploadForm");
+    uploadForm.addEventListener("submit", handleImageUpload);
+}
+
+function handleImageUpload(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const authToken = localStorage.getItem("authToken");
+
+  //Probleme par ici
+  if (!authToken) {
+    console.error("Token d'autorisation manquant.");
+    return;
+  }
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem("authToken")}`,
+    },
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Bon", data);
+      // Rendre dynamique ensuite
+      
+      getDataFromApi()
+      .then((newData) => {
+        showImagesByCategory("all", newData);
+        modalPicture(newData);
+      });
+    })
+    .catch((error) => {
+      console.error("Error uploading image:", error);
+    });
 }
 // gérer le clic sur les boutons de filtre
 function handleFilterButtonClick(event, data) {
@@ -95,7 +137,8 @@ function init() {
 // modal
 let modal = null;
 
-const openmodal = function (e) {
+const openmodal = function (e) { 
+  document.querySelector(".modal").style.display='none' //Le fermer au debut permet la transition des 2 modals
   e.preventDefault();
   console.log(e)
   const target = document.querySelector(e.target.getAttribute("href"));
@@ -105,9 +148,8 @@ const openmodal = function (e) {
   modal = target;
   modal.addEventListener("click", closeModal);
   modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
-  modal
-    .querySelector(".js-modal-stop")
-    .addEventListener("click", stopPropagation);
+  modal.querySelector(".js-modal-stop")
+       .addEventListener("click", stopPropagation);
 };
 
 const closeModal = function (e) {

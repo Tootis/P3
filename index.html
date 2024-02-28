@@ -43,7 +43,7 @@
 				<a href="#modal1" class="js-modal displayWhenLog" style="display: none;"><i class="fa-regular fa-pen-to-square"></i> Modifier </a>
 				<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 					<div class="modal-wrapper js-modal-stop" >
-						<button class="js-modal-close">x</button>
+						<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 						<h3 id="titleModal">Galerie Photo</h3>
 						<div class="pictureContainer">
 						</div>
@@ -53,20 +53,24 @@
 				
 				<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 					<div class="modal-wrapper js-modal-stop" >
-						<button class="js-modal-close">x</button>
+					<a href="#modal1" class="js-modal" ><i class="fa-solid fa-arrow-left"></i></a>	
+					<!-- Régler le retour en arrière -->
+						<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 						<h3 id="titleModal2">Ajout Photo</h3>
-						<form action="/traitement_categorie" method="post">
-							<label for="nom">Titre :</label>
-							<input type="text" id="nom" name="nom"><br><br>
-							<label for="nom_categorie">Catégorie :</label>
-							<select id="nom_categorie" name="nom_categorie">
-							  <option value="categorie1">Objets</option>
-							  <option value="categorie2">Appartements</option>
-							  <option value="categorie3">Hôtels & restaurants</option>
-							</select><br><br>
-							<label for="image">Ajouter une photo :</label>
+						<form action="/traitement_categorie" method="post" id="uploadForm" enctype="multipart/form-data">
+							<label for="image" class="textCategory" >Ajouter une photo :</label>
   							<input type="file" id="image" name="image"><br><br>
-							<input type="submit" value="Valider">
+							<label for="nom" class="textCategory" >Titre :</label>
+							<input type="text" id="nom" class="textCategory boxCategory " name="nom"><br><br>
+							<label for="nom_categorie" class="textCategory" >Catégorie :</label>
+							<select id="nom_categorie" class="boxCategory" name="nom_categorie">
+							  <option value="categorie1"class="textCategory">Objets</option>
+							  <option value="categorie2"class="textCategory">Appartements</option>
+							  <option value="categorie3"class="textCategory">Hôtels & restaurants</option>
+							</select><br><br>
+							<div class="pictureContainer">
+							</div>
+							<input id="submitPicture" type="submit" value="Valider">
 						  </form>
 					</div>
 				</aside>
