@@ -61,13 +61,12 @@ function suppr(image) {
       cache: 'reload'
     }
   })
-    .then((response) => response.json())
+    // .then((response) => response.json())
     .then((json) => {
-      console.log(json);
-      const deletedImage = document.querySelector(`.gallery img[src="${image.imageUrl}"]`);
-      if (deletedImage) {
-        deletedImage.closest('figure').remove();
-      }
+      const deletedImage = document.querySelectorAll(`img[src="${image.imageUrl}"]`).forEach((a) => {
+        if (a){        
+        a.closest('figure').remove();
+      }});
     })
     .catch((err) => console.log(err));
 }
@@ -81,36 +80,55 @@ function modalPicture(data) {
     uploadForm.addEventListener("submit", handleImageUpload);
 }
 
-function handleImageUpload(event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const authToken = localStorage.getItem("authToken");
+function resetImageUploadForm() {
+    const formPictureContainers = document.querySelectorAll('.formPicture');
+    formPictureContainers.forEach(container => {
+        container.style.display = "flex";
+    });
 
-  //Probleme par ici
-  if (!authToken) {
-    console.error("Token d'autorisation manquant.");
-    return;
-  }
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem("authToken")}`,
-    },
-    body: formData,
-  })
+    const imagePreviews = document.querySelectorAll('.formPicture.showOn');
+    imagePreviews.forEach(preview => {
+        preview.style.display = "none";
+        preview.querySelector('img').src = ''; // Réinitialiser l'attribut src de l'image
+    });
+
+    // Réinitialiser le champ de sélection de fichier
+    const fileInput = document.getElementById('image');
+    fileInput.value = '';
+}
+
+function handleImageUpload(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const authToken = localStorage.getItem("authToken");
+
+    //en cas de problème
+    if (!authToken) {
+        console.error("Token d'autorisation manquant.");
+        return;
+    }
+    fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem("authToken")}`,
+        },
+        body: formData,
+    })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Bon", data);
-      // Rendre dynamique ensuite
-      
-      getDataFromApi()
-      .then((newData) => {
-        showImagesByCategory("all", newData);
-        modalPicture(newData);
-      });
+        console.log("Bon", data);
+        // Réinitialiser le formulaire d'envoi d'image
+        resetImageUploadForm();
+
+        // Recharger les images après l'envoi réussi
+        getDataFromApi()
+        .then((newData) => {
+            showImagesByCategory("all", newData);
+            modalPicture(newData);
+        });
     })
     .catch((error) => {
-      console.error("Error uploading image:", error);
+        console.error("Error uploading image:", error);
     });
 }
 // gérer le clic sur les boutons de filtre
@@ -138,10 +156,16 @@ function init() {
 let modal = null;
 
 const openmodal = function (e) { 
-  document.querySelector(".modal").style.display='none' //Le fermer au debut permet la transition des 2 modals
+  document.querySelectorAll(".modal").forEach((a) => {
+  a.style.display='none'  
+  });//Le fermer au debut permet la transition des 2 modals
   e.preventDefault();
-  console.log(e)
-  const target = document.querySelector(e.target.getAttribute("href"));
+  e.stopPropagation();
+  let target = document.querySelector(e.target.getAttribute("href"));
+    if(e.target.getAttribute("href")==null){
+      target = document.querySelector(e.target.parentElement.getAttribute("href"))
+    }
+    
   target.style.display = null;
   target.removeAttribute("aria-hidden");
   target.setAttribute("aria-modal", "true");
@@ -174,7 +198,33 @@ const stopPropagation = function (e) {
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openmodal);
 });
+document.getElementById('image').addEventListener('change', function() {
+  const reader = new FileReader();
+  const input = this;
 
+  if (input.files && input.files[0]) {
+    console.log(input.files[0].name)
+    const fileSize = input.files[0].size; // Taille en octets
+    const maxSize = 4 * 1024 * 1024; // 4 Mo en octets
+
+    if (fileSize > maxSize) {
+      alert("La taille de l'image ne doit pas dépasser 4 Mo.");
+      input.value = ''; // Effacer le fichier sélectionné
+    } else {
+      reader.onload = function(e) {
+        document.querySelectorAll(".formPicture").forEach((item)=>{
+          item.style.display="none";
+          if(item.className=="formPicture showOn"){
+            item.style.display="flex";
+            item.firstElementChild.src = e.target.result;
+          }
+        });
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+});
 // Login
 function changementLogin() {
   let token = localStorage.getItem("authToken");
@@ -190,5 +240,30 @@ function changementLogin() {
   }
 }
 changementLogin();
+function logoutUser() {
+  // Supprimer le jeton d'authentification du localStorage
+  localStorage.removeItem('authToken');
+  // Recharger la page pour appliquer les changements
+  window.location.reload();
+}
+
+// Déconnexion
+document.addEventListener("DOMContentLoaded", function() {
+  const logoutButtons = document.querySelectorAll('.logoutButton');
+  logoutButtons.forEach(button => {
+      button.addEventListener('click', logoutUser);
+  });
+});
+
+// Détecter si la page actuelle est la page d'index
+if (window.location.pathname === '/index.html') {
+  // Ajouter la classe index-footer au footer 
+  document.querySelector('footer').classList.remove('index-footer');
+} else {
+  // Supprimer la classe index-footer du footer
+  document.querySelector('footer').classList.add('index-footer');
+}
+
 // chargement du script
 init();
+ // disabled pour la modal

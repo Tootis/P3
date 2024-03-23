@@ -31,7 +31,6 @@ function getDataFromApi(email, password) {
     .then(data => {
         if (data.token){
             saveTokenLocalStorage(data.token)
-            console.log('token', data.token);
             return data.token
         } else {
             throw new Error(
@@ -44,7 +43,6 @@ document.getElementById('login').addEventListener('click', function() {
     let emailValue = document.getElementById('email').value;
     let passwordValue = document.getElementById('password').value;
     console.log(emailValue,passwordValue)
-    // sophie.bluel@test.tld  S0phie
     getDataFromApi(emailValue,passwordValue)
     .then(token => {
         if (checkLoggedIn()){
@@ -52,10 +50,8 @@ document.getElementById('login').addEventListener('click', function() {
         }
         
     })
-
     .catch(error => {
         alert(`Erreur dans l’identifiant ou le mot de passe`);
-        console.log(error);
     })
 });
 

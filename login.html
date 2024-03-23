@@ -18,8 +18,8 @@
             <ul>
                 <li>projets</li>
                 <li>contact</li>
-                <li><b>login</b></li>
-                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+                <li id="loginWeight">login</li>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram" class="instagramPicture"></li>
             </ul>
         </nav>
     </header>
@@ -28,35 +28,29 @@
             <h2>log in</h2>
             <div>
                 <div class="cardUser">
-                    <label class="CheckEmail" for="email">
-                        <p>E-Mail</p>
-                    </label>
-                    <input type="email" required id="email">
+                    <label class="CheckEmail" for="email">E-mail :</label><br>
+            <input class="boxCategory" type="email" id="email" name="email" required><br><br>
                 </div>
                 <br>
                 <div>
                     <div class="cardUser">
-                        <label class="CheckPassword"  for="password">
-                            <p>Mot de passe</p>
-                        </label>
-                        <input type="password" required id="password">
+                        <label for="password" class="CheckPassword">Mot de passe :</label><br>
+                        <input class="boxCategory" type="password" id="password" name="password" required><br><br>
                     </div>
                 </div>
             </div>
             <button id="login">Se connecter</button>
             <a id="forgotPassword"><u>Mot de passe oublié</u></a>
         </div>
-        
     </main>
-
-    <footer>
-        <nav>
-            <ul>
-                <li>Mentions Légales</li>
-            </ul>
-        </nav>
-    </footer>
-    <script src="login.js"></script>
 </div>
+<footer class="index-footer">
+    <nav>
+        <ul>
+            <li>Mentions légales</li>
+        </ul>
+    </nav>
+</footer>
+<script src="login.js"></script>
 </body>
 </html>

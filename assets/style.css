@@ -23,6 +23,14 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+html{	
+	background-color: #FFFEF8;
+}
+
+body{
+	position: relative;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -30,6 +38,7 @@ footer, header, hgroup, menu, nav, section {
 }
 #mainContainer {
 	line-height: 1;
+	padding-bottom: 8%;
 }
 ol, ul {
 	list-style: none;
@@ -194,15 +203,36 @@ input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color: rgba(167, 167, 167, 1);
 	margin : 2em auto ;
-	width: 180px;
+	width: 293px;
+	height: 36px;
 	text-align: center;
 	border-radius: 60px ;
+	border: none;
 }
 
 footer{
+	display: flex;
+	flex-direction: row-reverse;
 	background-color: white;
+    width: 100%;
+	padding-right: 10px;
+	font-family: Work Sans;
+	font-size: 14px;
+	position: absolute;
+	bottom: 0;
+}
+
+.index-footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: white;
+    font-family: Work Sans;
+    font-size: 14px;
 }
 
 footer nav ul {
@@ -235,6 +265,22 @@ footer nav ul {
 	font-family: 'Work Sans';
     font-size: 16.8px;
 }
+
+.instagramPicture{
+width: 19px;
+height: 19px;
+}
+
+.formPicture{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(232, 241, 246, 1);
+	width: 420px;
+	height: 169px;
+	border-radius: 3px;
+}
 /**  Modal **/
 
 .modal{
@@ -248,7 +294,8 @@ footer nav ul {
 	background: rgba(0, 0, 0, 0.8);
 }
 
-* {box-sizing: border-box;
+* {
+	box-sizing: border-box;
 }
 
 .modal-wrapper {
@@ -348,9 +395,46 @@ footer nav ul {
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 	width: 420px;
 	height: 51px;
+	border: none;
+}
+.custom-file-upload{
+	color: rgba(48, 102, 133, 1);
+	background-color: rgba(203, 214, 220, 1);
+	margin : 1em auto ;
+	width: 173px;
+	height: 36px;
+	border-radius: 60px ;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.FormText{
+	font-family: Work Sans;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 11.73px;
+	text-align: center;
+
+}
+.fa-picture-o{
+	font-size:68px ;
+	color: rgba(185, 197, 204, 1);
 }
 
+.formPicture{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.formPicture img {
+    max-width: 129px;
+    max-height: 193px;
+}
 /** Login **/
+#loginWeight{
+	font-weight: 600;
+}
 
 #cardLogin{
 	display: flex;
@@ -378,4 +462,9 @@ footer nav ul {
 	border : none;
 	text-decoration: none;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+}
+
+.loginForm{
+	display: flex;
+	flex-direction: column;
 }

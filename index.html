@@ -20,8 +20,8 @@
 				<li>projets</li>
 				<li>contact</li>
 				<li class="hideWhenLog"><a href="login.html">login</a></li>
-				<li class="displayWhenLog" style="display: none;"><button class="buttontest">logout</button></li>
-				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+				<li class="displayWhenLog logoutButton" style="display: none;">logout</li>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram" class="instagramPicture"></li>
 			</ul>
 		</nav>
 	</header>
@@ -50,23 +50,32 @@
 						<button href="#modal2" class="addPicture js-modal">Ajouter une photo</button>
 					</div>
 				</aside>
-				
+				<!-- backdrop -->
 				<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 					<div class="modal-wrapper js-modal-stop" >
-					<a href="#modal1" class="js-modal" ><i class="fa-solid fa-arrow-left"></i></a>	
-					<!-- Régler le retour en arrière -->
+					<a href="#modal1" class="js-modal" ><i class="fa-solid fa-arrow-left"></i></a>
 						<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 						<h3 id="titleModal2">Ajout Photo</h3>
 						<form action="/traitement_categorie" method="post" id="uploadForm" enctype="multipart/form-data">
-							<label for="image" class="textCategory" >Ajouter une photo :</label>
-  							<input type="file" id="image" name="image"><br><br>
+							<div class="formPicture">
+								<i class="fa fa-picture-o" aria-hidden="true"></i>
+  								<input type="file" id="image" name="image" accept="image/*" style="display:none;" >
+								<img id="image" src="#" alt="Aperçu de l'image" style="display:none;">
+								<label for="image" class="custom-file-upload">
+									+ Ajouter Photo
+								</label>
+								<p class="FormText">jpg, png : 4mo max</p>
+							</div>
+							<div class="formPicture showOn" style="display: none;">
+								<img src="" class="userPicture" alt="" />
+							</div>
 							<label for="nom" class="textCategory" >Titre :</label>
-							<input type="text" id="nom" class="textCategory boxCategory " name="nom"><br><br>
+							<input type="text" id="nom" class="textCategory boxCategory " name="title"><br><br>
 							<label for="nom_categorie" class="textCategory" >Catégorie :</label>
-							<select id="nom_categorie" class="boxCategory" name="nom_categorie">
-							  <option value="categorie1"class="textCategory">Objets</option>
-							  <option value="categorie2"class="textCategory">Appartements</option>
-							  <option value="categorie3"class="textCategory">Hôtels & restaurants</option>
+							<select id="nom_categorie" class="boxCategory" name="category">
+							  <option value="1"class="textCategory">Objets</option>
+							  <option value="2"class="textCategory">Appartements</option>
+							  <option value="3"class="textCategory">Hôtels & restaurants</option>
 							</select><br><br>
 							<div class="pictureContainer">
 							</div>
@@ -142,15 +151,15 @@
 			</form>
 		</section>
 	</main>
-	<footer>
+	</div>
+	<footer class="index-footer">
 		<nav>
 			<ul>
-				<li>Mentions Légales</li>
+				<li>Mentions légales</li>
 			</ul>
 		</nav>
 	</footer>
 	<script src="https://kit.fontawesome.com/838c10b10b.js" crossorigin="anonymous"></script>
-	<script src="index.js"></script>
-	</div>
+	<script src="index.js"></script>	
 </body>
 </html>
