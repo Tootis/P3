@@ -50,6 +50,7 @@ function createImageElement(image,route) {
   }
 }
 
+// Suppimer l'image
 function suppr(image) {
   const id = image.id;
   let token = localStorage.getItem("authToken");
@@ -61,7 +62,6 @@ function suppr(image) {
       cache: 'reload'
     }
   })
-    // .then((response) => response.json())
     .then((json) => {
       const deletedImage = document.querySelectorAll(`img[src="${image.imageUrl}"]`).forEach((a) => {
         if (a){        
@@ -71,6 +71,7 @@ function suppr(image) {
     .catch((err) => console.log(err));
 }
 
+// Ensemble pour la modal
 function modalPicture(data) {
   data.forEach((image) => {
     const pictureContainer = document.querySelector(".pictureContainer");
@@ -80,6 +81,7 @@ function modalPicture(data) {
     uploadForm.addEventListener("submit", handleImageUpload);
 }
 
+// Upload de l'image
 function resetImageUploadForm() {
     const formPictureContainers = document.querySelectorAll('.formPicture');
     formPictureContainers.forEach(container => {
@@ -97,6 +99,7 @@ function resetImageUploadForm() {
     fileInput.value = '';
 }
 
+// Envoie d'image
 function handleImageUpload(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -155,6 +158,7 @@ function init() {
 // modal
 let modal = null;
 
+// Ouverture de la modal
 const openmodal = function (e) { 
   document.querySelectorAll(".modal").forEach((a) => {
   a.style.display='none'  
@@ -176,6 +180,7 @@ const openmodal = function (e) {
        .addEventListener("click", stopPropagation);
 };
 
+// fermeture de la modal
 const closeModal = function (e) {
   if (modal === null) return;
   e.preventDefault();
@@ -192,12 +197,15 @@ const closeModal = function (e) {
   modal = null;
 };
 
+// Pour le backdrop et éviter des erreurs
 const stopPropagation = function (e) {
   e.stopPropagation();
 };
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openmodal);
 });
+
+// Gestion pour l'image de l'utilisateur
 document.getElementById('image').addEventListener('change', function() {
   const reader = new FileReader();
   const input = this;
@@ -225,6 +233,7 @@ document.getElementById('image').addEventListener('change', function() {
     }
   }
 });
+
 // Login
 function changementLogin() {
   let token = localStorage.getItem("authToken");
