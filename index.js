@@ -73,10 +73,12 @@ function suppr(image) {
 
 // Ensemble pour la modal
 function modalPicture(data) {
+  const pictureContainer = document.querySelector(".pictureContainer");
+  pictureContainer.innerHTML = ""
   data.forEach((image) => {
-    const pictureContainer = document.querySelector(".pictureContainer");
-    createImageElement(image, pictureContainer);
+        createImageElement(image, pictureContainer);
   });
+    console.log(pictureContainer)
     const uploadForm = document.getElementById("uploadForm");
     uploadForm.addEventListener("submit", handleImageUpload);
 }
@@ -122,13 +124,17 @@ function handleImageUpload(event) {
         console.log("Bon", data);
         // Réinitialiser le formulaire d'envoi d'image
         resetImageUploadForm();
-
+        const pictureContainer = document.querySelector(".pictureContainer");
+        createImageElement(data, pictureContainer);
+        const galleryImport = document.querySelector(".gallery");
+        createImageElement(data, galleryImport);
         // Recharger les images après l'envoi réussi
-        getDataFromApi()
-        .then((newData) => {
-            showImagesByCategory("all", newData);
-            modalPicture(newData);
-        });
+        // getDataFromApi()
+        // .then((newData) => {
+        //     showImagesByCategory("all", newData);
+            
+        //     modalPicture(newData);
+        // });
     })
     .catch((error) => {
         console.error("Error uploading image:", error);
@@ -272,6 +278,29 @@ if (window.location.pathname === '/index.html') {
   // Supprimer la classe index-footer du footer
   document.querySelector('footer').classList.add('index-footer');
 }
+
+// Récupérer les éléments du formulaire
+const titreInput = document.getElementById('nom');
+const imageInput = document.getElementById('image');
+const validerButton = document.getElementById('submitPicture');
+
+// Fonction pour vérifier les critères de validation
+function verifierValidation() {
+  if (titreInput.value !== '' && imageInput.value !== '') {
+      validerButton.removeAttribute('disabled');
+      validerButton.style.backgroundColor = 'rgba(29, 97, 84, 1)';
+  } else {
+      validerButton.setAttribute('disabled', 'true');
+      validerButton.style.backgroundColor = 'gray';
+  }
+}
+
+// Écouter les changements dans les champs du formulaire
+titreInput.addEventListener('input', verifierValidation);
+imageInput.addEventListener('change', verifierValidation);
+
+// Appeler la fonction au chargement de la page
+verifierValidation();
 
 // chargement du script
 init();

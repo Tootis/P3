@@ -201,13 +201,11 @@ margin: auto;
 
 input[type="submit"] {
 	font-family: 'Syne';
-	font-weight: 700;
 	color: white;
-	background-color: rgba(167, 167, 167, 1);
+	background: rgba(29, 97, 84, 1);
 	margin : 2em auto ;
 	width: 293px;
 	height: 36px;
-	text-align: center;
 	border-radius: 60px ;
 	border: none;
 }
