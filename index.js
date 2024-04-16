@@ -11,6 +11,18 @@ function getDataFromApi() {
     });
 }
 
+function getDataFromApiCategories() {
+  return fetch("http://localhost:5678/api/categories")
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      return data;
+    });
+}
+
 // filtrer et afficher les images en fonction de la catégorie
 function showImagesByCategory(categoryId, data) {
   const gallery = document.querySelector(".gallery");
@@ -78,7 +90,6 @@ function modalPicture(data) {
   data.forEach((image) => {
         createImageElement(image, pictureContainer);
   });
-    console.log(pictureContainer)
     const uploadForm = document.getElementById("uploadForm");
     uploadForm.addEventListener("submit", handleImageUpload);
 }
@@ -148,6 +159,18 @@ function handleFilterButtonClick(event, data) {
 
 // récupérer les données et initialiser les événements
 function init() {
+  getDataFromApiCategories().then((data)=>{
+    
+    data.forEach((item) => {
+      const bouton = document.createElement('button');
+      bouton.textContent = item.name;
+      bouton.classList.add('projectButton');
+      bouton.setAttribute('data-id', item.id);
+      document.querySelector ('#filter').appendChild(bouton)
+      })
+    
+  }
+)
   getDataFromApi().then((data) => {
     showImagesByCategory("all", data);
     modalPicture(data);
@@ -159,6 +182,7 @@ function init() {
       });
     });
   });
+  
 }
 
 // modal
